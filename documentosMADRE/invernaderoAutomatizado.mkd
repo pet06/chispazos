@@ -1,0 +1,164 @@
+#Invernadero automatizado
+
+Este trabajo consiste en crear un hábitat para unas plantas en el que se puedan controlar automáticamente la iluminación, la temperatura y la humedad del suelo.
+
+
+Aquí se puede encontrar el contenido del proyecto para este curso 2017-18.
+
+[Iniciación a la domótica: Invernadero automatizado con Arduino](https://drive.google.com/file/d/10EYo1zL5ApScnmnvVe8J-vzumK8xYxvx/view?usp=sharing)
+
+
+Después de ver la presentación, ya tenemos una idea de qué es lo que queremos construir y qué es lo que necesitamos para ello.
+
+A partir de aquí, es necesario exponer una serie de contenidos para poder llevara a cabo el proyecto.
+
+
+
+- Control de la iluminación
+- Control de la temperatura
+- Control de la humedad del suelo
+
+
+
+###CONTROL DE LA ILUMINACIÓN
+
+
+
+###CONTROL DE LA TEMPERATURA
+
+Utilizaremos un sensor de temperatura LM35. El sensor tiene tres pines que se pueden apreciar en la foto.
+
+![](/home/pedro/webChispazos/imagenes/invernadero/moduloLM35.jpg)
+
+En esta posición en la que aparece en la foto, el pin de la derecha se conecta a los **+5V** de la placa Arduino y está alimentado directamente por ella. El pin de la izquierda se conecta a la tierra (**GND**) de la placa Arduino. Por último, el pin central se ha conectado a la entrada analógica **A0** de la placa. En el sketch, a esta entrada se la ha llamado ***sensorLM35Pin***.
+
+
+![](/home/pedro/webChispazos/imagenes/invernadero/ventiladorYled.jpg)
+
+Cuando la temperatura aumente un grado por encima (*histeresis* en el sketch) del valor de referencia, llamado *temperatura de consigna* y establecida en 25ºC, el ventilador actuará enfriando el ambiente interior del invernadero. La actuación del ventilador vendrá dada por una señal digital procedente de la salida 8 de la placa denominada en el sketch ***ledPin***. Esta salida también encenderá un led rojo que indicará que el ventilador está funcionando.
+
+
+><u>NOTA</u>: Los cálculos permiten que el mismo pin pueda enviar señales simultaneamente tanto al led como a la base del transistor LB135 que accionará el ventilador. Sin embargo, esto no es recomendable.
+
+![](/home/pedro/webChispazos/imagenes/invernadero/moduloConectores.jpg)
+
+En la foto anterior se puede apreciar la derivación desde la salida digital 8 de la placa Arduino al led rojo y al propio ventilador llamadas PIN SEÑAL V. y PIN VENT. respectivamente.
+
+
+Respecto a la activación del ventilador, usaremos un circuito adicional para *ayudar* a la placa Arduino a controlar el ventilador. Este será alimentado por una fuente externa de 9V. La idea es evitar que la placa controladora se *esfuerce* demasiado intentando alimentar un motor con una demanda de corriente superior a la que la placa puede proporcionarle. El esquema del circuito es el que sigue:
+
+![](/home/pedro/webChispazos/imagenes/invernadero/transistorLB135.png)
+
+El módulo del ventilador una vez construido es el que se muestra en la foto. En dicha foto se aprecia además un condensador que, a veces, se utiliza para 
+
+![](/home/pedro/webChispazos/imagenes/invernadero/moduloVentilador.jpg)
+
+
+
+
+
+###HUMEDAD DEL SUELO
+
+
+
+
+
+**Y aquí está el sketch:**
+
+
+    /* Control de la iluminacion y temperatura de un invernadero
+     Temperatura con histeresis, sensor LM35
+     Iluminacion crepuscular con resistencia LDR
+     Humedad del suelo con sensor HL-69
+     4 de abril de 2018
+     (PcF) jppm.06@gmail.com
+  */
+
+
+    const int sensorLM35Pin = 0 ; // el sensor de temperatura     LM35 se conecta al pin 0 entrada analogica
+    const int tempConsigna = 25 ; //temperatura de consigna en 25 grados celsius
+    const int histeresis=1; //considero una histeresis alrededor de la consigna de 1 grados
+    const int ledPin1=9; //led1 de iluminacion del invernadero
+    const int ledPin2=10; //led2 de iluminacion del invernadero
+    const int ledPin3=11; //led3 de iluminacion del invernadero
+    const int ledPin4=12; //led4 de iluminacion del invernadero
+    const int ledPin=8; //el pin 8 es una salida digital conectada al led rojo del ventilador
+    const int sensorHL69Pin=2; //entrada analogica arduino desde el sensor
+    const int bombaPin=6; //salida PWM activacion bomba de agua
+    const int velocidad=255; //valores entre 0 y 255
+    const int LDRPin=1;
+    int umbral1=850; //umbral de iluminacion 
+    int umbral2=980; //umbral de iluminacion
+
+    void setup(){
+        Serial.begin(9600);
+        pinMode(ledPin1,OUTPUT);
+        pinMode(ledPin2,OUTPUT);
+        pinMode(ledPin3,OUTPUT);
+        pinMode(ledPin4,OUTPUT);
+        pinMode(ledPin,OUTPUT);
+        pinMode(bombaPin,OUTPUT);
+        }
+
+    void loop(){
+        //Tratamiento de la temperatura
+        int lectura1 = analogRead(sensorLM35Pin);//primera lectura del sensor
+        float voltaje1 = 5.0 /1024.0 * lectura1 ;
+        int temp1 = voltaje1 * 100 ;
+        delay(1000);
+        int lectura2 = analogRead(sensorLM35Pin); //segunda lectura del sensor
+        float voltaje2 = 5.0 /1024.0 * lectura2 ;
+        int temp2 = voltaje2 * 100 ;
+        delay(1000);
+        
+        if((temp1<temp2) && (temp2>tempConsigna+histeresis))
+            digitalWrite(ledPin,HIGH);
+        if((temp1>=temp2) && (temp2<=tempConsigna-histeresis))
+            digitalWrite(ledPin,LOW);
+
+     //Tratamiento de la iluminacion
+        int lecturaLDR=analogRead(LDRPin);
+        int porcentajeLuz=0.00058*lecturaLDR*lecturaLDR-0.70*lecturaLDR+209.8;  
+        if (lecturaLDR<umbral1){
+            digitalWrite(ledPin1,HIGH);
+            digitalWrite(ledPin2,HIGH);
+            digitalWrite(ledPin3,HIGH);
+            digitalWrite(ledPin4,HIGH);
+        }
+        else if(lecturaLDR<umbral2){
+            digitalWrite(ledPin1,HIGH);
+            digitalWrite(ledPin2,HIGH);
+            digitalWrite(ledPin3,LOW);
+            digitalWrite(ledPin4,LOW); 
+        }
+        else if (lecturaLDR>=umbral2){
+            digitalWrite(ledPin1,LOW);
+            digitalWrite(ledPin2,LOW);
+            digitalWrite(ledPin3,LOW);
+            digitalWrite(ledPin4,LOW);
+         }
+
+     //Tratamiento de la humedad del suelo
+        int valorHumedad=map(analogRead(sensorHL69Pin),0,1023,100,0);
+        if(valorHumedad<25){
+            analogWrite(bombaPin,velocidad);
+        }
+        else {
+            analogWrite(bombaPin,0);
+        }
+
+      Serial.print("Temperatura: ");
+    //Serial.print(temp1) ;   //me dice en pantalla la temperatura1 recogida por el sensor
+      Serial.print(temp2) ;   //me dice en pantalla la temperatura2 recogida por el sensor
+      Serial.print(" C");
+      Serial.print("     ");
+      Serial.print("Iluminacion: ");
+      Serial.print(porcentajeLuz);
+      Serial.print(" %");
+      Serial.print("     ");
+      Serial.print("Humedad: ");
+      Serial.print(valorHumedad);
+      Serial.println(" %");
+      delay(200);
+    }
+
