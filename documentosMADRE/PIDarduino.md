@@ -6,17 +6,17 @@ El sistema consistía en una fiambrera, que sería el recinto cuya temperatura i
 
 La cosa tenía esta pinta... Donde se puede apreciar el ventilador situado en la parte superior de la tapa de la fiambrera y junto a éste, se encuentra un módulo amplificador que tuve que construir para poder gobernar el ventilador mediante señales TTL de 5V de la placa Arduino. Dado que el ventilador era capaz de funcionar a 24V y se alimentaba con una fuente de unos 15V en vacío (la historia de esta fuente está en otra entrada de este mismo blog (Fuente de alimentación regulada).
 
-![](imagenes/fotoPIDarduino01.jpg)
+![](imagenes/PIDarduino/fotoPIDarduino01.jpg)
 
 La fiambrera disponía en su parte inferior de unos pequeños agujeros laterales por los que el aire impulsado por el ventilador podía salir. Se puede ver también en la foto una placa de prototipos y, conectada a esta, la estupenda placa Arduino NANO, con su cable de conexión al ordenador, directamente llegados desde Hong Kong.
 
 Dentro de la fiambrera está el sensor de temperatura LM35 que comunicaría con Arduino.  El citado sensor tiene esta pinta, una vez montado en su módulo correspondiente...
 
-![](imagenes/fotoPIDarduino02.jpg)
+![](imagenes/PIDarduino/fotoPIDarduino02.jpg)
 
 Volviendo al módulo amplificador, también se ha luchado lo propio... El módulo hubo que añadirlo para poder hacer funcionar un ventilador de 24V a partir de una fuente de 15V de f.e.m. mediante un impulso de 5V... He aquí el esquema del módulo conectado al ventilador y un boceto del montaje.
 
-![](imagenes/fotoPIDarduino03.jpg)
+![](imagenes/PIDarduino/fotoPIDarduino03.jpg)
 
 Nótese que en el ventilador hay un diodo conectado en antiparalelo para evitar las corrientes de retorno producidas en la bobina del propio motor y que podrían dañar, a la larga, el circuito.
 
@@ -24,11 +24,11 @@ Concluido el montaje, quedaban dos tareas pendientes: una, la estimación de los
 
 Empezando con la estimación del orden de magnitud de los parámetros característicos dinámicos del sistema: kp, ki, kd a partir de la curva de reacción (lazo abierto). Se tomaron datos experimentales sobre el enfriamiento del recinto mediante el ventilador al 100% de su potencia, después de ser calentado con la lámpara, también esta al 100% de su intensidad luminosa.
 
-![](imagenes/fotoPIDarduino04.jpg)
+![](imagenes/PIDarduino/fotoPIDarduino04.jpg)
 
 La siguiente figura muestras los resultados obtenidos. En el eje de ordenadas se representa la temperatura en grados centígrados del interior del recinto y en el eje de abcisas el tiempo en segundos.
 
-![](imagenes/fotoPIDarduino05.png)
+![](imagenes/PIDarduino/fotoPIDarduino05.png)
 
 En la figura también se puede apreciar una curva en rojo que representa el modelo teórico de decaimiento exponencial que se empleó para ajustar los puntos. Se trata de la Ley del enfriamiento de Newton. Una expresión del tipo:
 T=Tm + C·e^(-k·t)

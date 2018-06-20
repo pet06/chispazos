@@ -9,13 +9,13 @@
 <p>Los <em>potenciómetros</em> y los <em>reóstatos</em> son resistencias cuyos valores pueden variarse. </p>
 <p>Mediante las resistencias variables se puede controlar la <strong>intensidad de corriente</strong> que fluye por un circuito si se conecta en paralelo, o la <strong>diferencia de potencial</strong> al conectarlo en serie.</p>
 <p>Normalmente, los potenciómetros se utilizan en circuitos de poca corriente. Para circuitos de corrientes mayores se utilizan los reóstatos, que pueden disipar más potencia.</p>
-<p><img alt="" src="imagenes/fotoReostatos01.jpg"></p>
+<p><img alt="" src="imagenes/reostatos/fotoReostatos01.jpg"></p>
 <p>En la imagen aparecen distintos tipos de potenciómetros que varían su resistencia girando el tornillo central.</p>
 <p>Una aplicación de las resistencias variables puede ser la del control de la iluminación. Un <strong>dimmer</strong>, <strong>regulador</strong>, <strong>atenuador</strong> o <strong>dímer</strong> sirve para regular la energía en uno o varios focos, con el fin de variar la intensidad de la luz que emiten (siempre y cuando las propiedades de la lámpara lo permitan).</p>
 <h2>Se propone una experiencia práctica que consistirá en controlar la intensidad luminosa de un led rojo mediante el empleo de un circuito con un potenciómetro.</h2>
 <p>Para empezar, sin embargo, hay que tener en cuenta una serie de aspectos técnicos. En primer lugar, el led es un diodo emisor de luz que presenta en la actualidad muchas ventajas sobre las fuentes de luz incandescentes y fluorescentes.</p>
 <p>En el siguiente esquema se pueden observar las distintas partes componentes de un led.</p>
-<p><img alt="" src="imagenes/fotoReostatos02.jpg"> </p>
+<p><img alt="" src="imagenes/reostatos/fotoReostatos02.png"> </p>
 <p>A:  ánodo
 B:  cátodo
 1:  lente/encapsulado epóxico (cápsula plástica).
@@ -28,7 +28,7 @@ B:  cátodo
 8:  borde plano</p>
 <p>Para que pueda funcionar un led de color rojo,  la diferencia de potencial entre el ánodo y el cátodo debe ser de al menos <strong>1.8V</strong>. Por otra parte, la corriente máxima que puede circular por un led está en torno a los <strong>30mA</strong>; corrientes superiores dañarán el led de forma irreversible.</p>
 <p>A partir de estos datos, podremos diseñar nuestro circuito, que tendrá en principio el siguiente esquema. Es fundamental que el led se conecte en el circuito con la polaridad adecuada, <strong>si se conectase mal el led quedaría inutilizado</strong>.</p>
-<p><img alt="" src="imagenes/fotoReostatos03.jpg"></p>
+<p><img alt="" src="imagenes/reostatos/fotoReostatos03.png"></p>
 <p>Aplicando la Ley de Ohm, tendríamos que resolver el siguiente circuito de corriente continua, donde <em>V</em> es la tensión que proporciona la fuente de tensión (que puede ser un viejo cargador de móvil debidamente protegido con un fusible), y <em>R</em> la resistencia que debe limitar la intensidad de corriente hasta un valor de <strong>30mA</strong> como máximo. </p>
 <pre><code>Vfuente - Vled = I · R
 </code></pre>
@@ -38,13 +38,13 @@ B:  cátodo
 <p>Despejando,
 <strong> R = 480 ohmios</strong>.</p>
 <p>Así, el led luciría con máxima intensidad (de 30mA). Si queremos, sin embargo, controlar la luz emitida por el led, deberíamos añadir en el circuito un potenciómetro, de manera que aumentando el valor de su resistencia, la luz emitida por el led se iría atenuando. El circuito quedaría como este.</p>
-<p><img alt="" src="imagenes/fotoReostatos04.jpg"></p>
+<p><img alt="" src="imagenes/reostatos/fotoReostatos04.png"></p>
 <p>Aplicando una vez más la Ley de Ohm, tendríamos la siguiente expresión:</p>
 <pre><code>Vfuente - Vled = I · (R + Rpotenciómetro)
 </code></pre>
 <p>Yo he usado un potenciómetro de 100K. El montaje del prototipo lo realicé con una placa de pruebas (protoboard) y dos resistencias en serie que sumaban los 480 ohmios por no disponer de una resistencia de ese valor concreto. El montaje fue el siguiente:</p>
-<p><img alt="" src="imagenes/fotoReostatos05.jpg">  </p>
+<p><img alt="" src="imagenes/reostatos/fotoReostatos05.png">  </p>
 <p>Una vez comprobado el buen funcionamiento del prototipo, se pasó a su construcción usando una placa microperforada. El resultado es el siguiente engendro:</p>
-<p><img alt="" src="imagenes/fotoReostatos06.jpg"></p>
+<p><img alt="" src="imagenes/reostatos/fotoReostatos06.jpg"></p>
 </body>
 </html>

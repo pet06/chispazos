@@ -6,7 +6,7 @@ Mediante las resistencias variables se puede controlar la **intensidad de corrie
 
 Normalmente, los potenciómetros se utilizan en circuitos de poca corriente. Para circuitos de corrientes mayores se utilizan los reóstatos, que pueden disipar más potencia.
 
-![](imagenes/fotoReostatos01.jpg)
+![](imagenes/reostatos/fotoReostatos01.jpg)
 
 
 En la imagen aparecen distintos tipos de potenciómetros que varían su resistencia girando el tornillo central.
@@ -20,7 +20,7 @@ Para empezar, sin embargo, hay que tener en cuenta una serie de aspectos técnic
 En el siguiente esquema se pueden observar las distintas partes componentes de un led.
 
 
-![](imagenes/fotoReostatos02.png) 
+![](imagenes/reostatos/fotoReostatos02.png) 
 
 A:	ánodo
 B:	cátodo
@@ -37,7 +37,7 @@ Para que pueda funcionar un led de color rojo,  la diferencia de potencial entre
 
 A partir de estos datos, podremos diseñar nuestro circuito, que tendrá en principio el siguiente esquema. Es fundamental que el led se conecte en el circuito con la polaridad adecuada, **si se conectase mal el led quedaría inutilizado**.
 
-![](imagenes/fotoReostatos03.png)
+![](imagenes/reostatos/fotoReostatos03.png)
 
 Aplicando la Ley de Ohm, tendríamos que resolver el siguiente circuito de corriente continua, donde *V* es la tensión que proporciona la fuente de tensión (que puede ser un viejo cargador de móvil debidamente protegido con un fusible), y *R* la resistencia que debe limitar la intensidad de corriente hasta un valor de **30mA** como máximo. 
 
@@ -54,7 +54,7 @@ Despejando,
 Así, el led luciría con máxima intensidad (de 30mA). Si queremos, sin embargo, controlar la luz emitida por el led, deberíamos añadir en el circuito un potenciómetro, de manera que aumentando el valor de su resistencia, la luz emitida por el led se iría atenuando. El circuito quedaría como este.
 
 
-![](imagenes/fotoReostatos04.png)
+![](imagenes/reostatos/fotoReostatos04.png)
 
 Aplicando una vez más la Ley de Ohm, tendríamos la siguiente expresión:
 
@@ -62,10 +62,10 @@ Aplicando una vez más la Ley de Ohm, tendríamos la siguiente expresión:
 
 Yo he usado un potenciómetro de 100K. El montaje del prototipo lo realicé con una placa de pruebas (protoboard) y dos resistencias en serie que sumaban los 480 ohmios por no disponer de una resistencia de ese valor concreto. El montaje fue el siguiente:
 
-![](imagenes/fotoReostatos05.png)  
+![](imagenes/reostatos/fotoReostatos05.png)  
 
 Una vez comprobado el buen funcionamiento del prototipo, se pasó a su construcción usando una placa microperforada. El resultado es el siguiente engendro:
 
-![](imagenes/fotoReostatos06.jpg)
+![](imagenes/reostatos/fotoReostatos06.jpg)
 
 
